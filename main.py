@@ -1,19 +1,24 @@
 import math
+# import numpy as np
+
 
 D = 1500
-alpha1 = 30
-betta1 = 30
-alpha2 = 80
-betta2 = 85
-# AB / math.sin(alpha2) = BC / math.sin(alpha1) = D / math.sin(180-alpha1-alpha2)
-AF = math.sin(alpha2) * (D / math.sin(180-(alpha1+alpha2)))
-CF = math.sin(alpha1) * (D / math.sin(180-alpha1-alpha2))
-if AF / math.sin(alpha2) == CF / math.sin(alpha1) == D / math.sin(180-alpha1-alpha2):
-    print(AF, CF)
+# D is a distance between cameras
+alpha1 = math.radians(60)
+betta1 = math.radians(30)
+alpha2 = math.radians(50)
+betta2 = math.radians(30)
+alpha3 = math.radians(180)-alpha1-alpha2
+print(alpha3)
 
-AB = AF*math.tan(betta1)
-CB = CF*math.tan(betta2)
 
-H1 = math.sqrt(AB**2 - AF**2)
-H2 = math.sqrt(abs(CB**2) - abs(CF**2))
-print(H1,H2)
+# AF / math.sin(alpha2) = CF / math.sin(alpha1) = D / math.sin(180-alpha1-alpha2)
+AF = (math.sin(alpha2) * D) / math.sin(alpha3)
+CF = (math.sin(alpha1) * D) / math.sin(alpha3)
+print("Distance from 1 =", str(AF)+"m", "Distance from 2 =", str(CF)+"m")
+AB = AF / math.cos(betta1)
+CB = CF / math.cos(betta2)
+H1 = math.sin(betta1) * AB
+H2 = math.sin(betta2) * CB
+
+print(H1, H2)
